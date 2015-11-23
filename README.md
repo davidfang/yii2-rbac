@@ -9,14 +9,14 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist yii2mod/yii2-rbac "*"
+php composer.phar require --prefer-dist zc/yii2-rbac "*"
 php composer.phar require "yiisoft/yii2-jui": "~2.0@dev" //can't be installed via composer.json requiremtns because of DependencyResolver issue
 ```
 
 or add
 
 ```json
-"yii2mod/yii2-rbac": "*"
+"zc/yii2-rbac": "*"
 ```
 
 to the require section of your composer.json.
