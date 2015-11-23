@@ -52,17 +52,17 @@ return [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest', 'user'],
             'cache' => 'yii\caching\FileCache',
-            'itemTable' => 'AuthItem',
-            'itemChildTable' => 'AuthItemChild',
-            'assignmentTable' => 'AuthAssignment',
-            'ruleTable' => 'AuthRule',
+            //'itemTable' => 'AuthItem',
+            //'itemChildTable' => 'AuthItemChild',
+            //'assignmentTable' => 'AuthAssignment',
+            //'ruleTable' => 'AuthRule',
         ],
     ]
 ];
 ```
-If you use this extension separate from the [base template](https://github.com/yii2mod/base), then you need execute rbac init migration by the following command: 
+you need execute rbac init migration by the following command:
 ```
-php yii migrate/up --migrationPath=@yii2mod/rbac/migrations
+php yii migrate/up --migrationPath=@zc/rbac/migrations
 ```
 
 You can then access Auth manager through the following URL:
@@ -95,6 +95,6 @@ public function behaviors()
             ],
         ];
     }
-  // Your actions
+  // Your actionss
 }
 ```
