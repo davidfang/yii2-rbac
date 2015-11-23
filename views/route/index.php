@@ -10,14 +10,14 @@ $this->title = 'Routes';
 $this->params['breadcrumbs'][] = $this->title;
 $this->render('/layouts/_sidebar');
 ?>
+<div class="route-index">
     <h1>Routes</h1>
     <p>
         <?php echo Html::a('Create route', ['create'], ['class' => 'btn btn-success']) ?>
         <?php echo Html::a('Update', ['#'], ['class' => 'btn btn-success', 'id' => 'btn-refresh']); ?>
     </p>
-
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             <?php echo Html::textInput('search_av', '', [
                     'class' => 'role-search form-control',
                     'data-target' => 'available',
@@ -48,7 +48,7 @@ $this->render('/layouts/_sidebar');
                 ?>
             </div>
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-4">
             <?php echo Html::textInput('search_asgn', '', [
                     'class' => 'role-search form-control',
                     'data-target' => 'assigned',
@@ -65,7 +65,7 @@ $this->render('/layouts/_sidebar');
             ?>
         </div>
     </div>
-    </div>
+</div>
 <?php
 
 $this->registerJs("rbac.init({
