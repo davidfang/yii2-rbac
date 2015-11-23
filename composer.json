@@ -15,7 +15,6 @@
         }
     ],
     "require": {
-        "zc/yii2-user": "*",
         "yiisoft/yii2-jui": "*"
     },
     "autoload": {
