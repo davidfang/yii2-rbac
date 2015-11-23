@@ -17,6 +17,7 @@ $this->render('/layouts/_sidebar');
         <h1>User: <?php echo $model->{$usernameField}; ?></h1>
 
         <div class="row">
+            <div class="col-lg-12"></div>
             <div class="col-lg-5">
                 <?php
                 echo Html::textInput('search_av', '', [
