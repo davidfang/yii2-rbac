@@ -1,5 +1,5 @@
 <?php
-use yii2mod\rbac\assets\RbacAsset;
+use zc\rbac\assets\RbacAsset;
 
 RbacAsset::register($this);
 $this->params['sidebar'] = [

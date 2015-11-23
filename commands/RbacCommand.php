@@ -1,6 +1,6 @@
 <?php
 
-namespace yii2mod\rbac\commands;
+namespace zc\rbac\commands;
 
 use Yii;
 use yii\console\Controller;
@@ -10,7 +10,7 @@ use yii\helpers\FileHelper;
 
 /**
  * Class RbacCommand
- * @package yii2mod\rbac\commands
+ * @package zc\rbac\commands
  */
 class RbacCommand extends Controller
 {

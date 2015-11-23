@@ -1,6 +1,6 @@
 <?php
 
-namespace yii2mod\rbac\controllers;
+namespace zc\rbac\controllers;
 
 use yii\db\ActiveRecord;
 use yii\filters\VerbFilter;
@@ -11,11 +11,11 @@ use yii\web\Controller;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use yii2mod\rbac\models\search\AssignmentSearch;
+use zc\rbac\models\search\AssignmentSearch;
 
 /**
  * Class AssignmentController
- * @package yii2mod\rbac\controllers
+ * @package zc\rbac\controllers
  */
 class AssignmentController extends Controller
 {

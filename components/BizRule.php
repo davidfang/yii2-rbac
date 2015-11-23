@@ -1,12 +1,12 @@
 <?php
 
-namespace yii2mod\rbac\components;
+namespace zc\rbac\components;
 
 use yii\rbac\Rule;
 
 /**
  * Class BizRule
- * @package yii2mod\rbac\components
+ * @package zc\rbac\components
  */
 class BizRule extends Rule
 {

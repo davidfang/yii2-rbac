@@ -1,12 +1,12 @@
 <?php
 
-namespace yii2mod\rbac\models;
+namespace zc\rbac\models;
 
 use yii\base\Model;
 
 /**
  * Class RouteModel
- * @package yii2mod\rbac\models
+ * @package zc\rbac\models
  */
 class RouteModel extends Model
 {

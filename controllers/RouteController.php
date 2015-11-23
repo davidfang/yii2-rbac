@@ -1,19 +1,19 @@
 <?php
 
-namespace yii2mod\rbac\controllers;
+namespace zc\rbac\controllers;
 
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\Response;
 use Yii;
-use yii2mod\rbac\components\AccessHelper;
-use yii2mod\rbac\models\RouteModel;
+use zc\rbac\components\AccessHelper;
+use zc\rbac\models\RouteModel;
 
 
 /**
  * Class RouteController
- * @package yii2mod\rbac\controllers
+ * @package zc\rbac\controllers
  */
 class RouteController extends Controller
 {

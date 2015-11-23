@@ -1,6 +1,6 @@
 <?php
 
-namespace yii2mod\rbac\models;
+namespace zc\rbac\models;
 
 use yii\base\Model;
 use yii\helpers\VarDumper;

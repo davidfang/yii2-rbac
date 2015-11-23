@@ -1,16 +1,16 @@
 <?php
 
-namespace yii2mod\rbac\models;
+namespace zc\rbac\models;
 
 use Yii;
 use yii\base\Model;
 use yii\rbac\Rule;
-use yii2mod\rbac\components\BizRule;
+use zc\rbac\components\BizRule;
 
 
 /**
  * Class BizRuleModel
- * @package yii2mod\rbac\models
+ * @package zc\rbac\models
  */
 class BizRuleModel extends Model
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace yii2mod\rbac\models\search;
+namespace zc\rbac\models\search;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
-use yii2mod\rbac\models\BizRuleModel;
+use zc\rbac\models\BizRuleModel;
 
 /**
  * Class BizRuleSearch
- * @package yii2mod\rbac\models\search
+ * @package zc\rbac\models\search
  */
 class BizRuleSearch extends Model
 {

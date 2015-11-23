@@ -1,6 +1,6 @@
 <?php
 
-namespace yii2mod\rbac\controllers;
+namespace zc\rbac\controllers;
 
 use Yii;
 use yii\filters\VerbFilter;
@@ -10,12 +10,12 @@ use yii\rbac\Item;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use yii2mod\rbac\models\AuthItemModel;
-use yii2mod\rbac\models\search\AuthItemSearch;
+use zc\rbac\models\AuthItemModel;
+use zc\rbac\models\search\AuthItemSearch;
 
 /**
  * Class RoleController
- * @package yii2mod\rbac\controllers
+ * @package zc\rbac\controllers
  */
 class RoleController extends Controller
 {

@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var yii\web\View $this
- * @var yii2mod\rbac\models\AuthItem $model
+ * @var zc\rbac\models\AuthItem $model
  * @var yii\widgets\ActiveForm $form
  */
 ?>
@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?php echo $form->field($model, 'expression')->textarea([
         'rows' => 2,
-        'disabled' => $model->className != '' && $model->className != 'yii2mod\rbac\components\BizRule'
+        'disabled' => $model->className != '' && $model->className != 'zc\rbac\components\BizRule'
     ])->hint('Simple PHP expression. Example: return Yii::$app->user->isGuest;');
     ?>
 

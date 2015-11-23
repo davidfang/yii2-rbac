@@ -7,7 +7,7 @@ use yii\helpers\Url;
 /**
  * @var yii\web\View                         $this
  * @var yii\data\ActiveDataProvider          $dataProvider
- * @var yii2mod\rbac\models\AssignmentSearch $searchModel
+ * @var zc\rbac\models\AssignmentSearch $searchModel
  */
 $this->title = 'Assignments';
 $this->params['breadcrumbs'][] = $this->title;

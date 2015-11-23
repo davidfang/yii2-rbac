@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 /**
  * @var yii\web\View                 $this
- * @var yii2mod\rbac\models\AuthItem $model
+ * @var zc\rbac\models\AuthItem $model
  */
 
 $this->title = 'Create Permission';

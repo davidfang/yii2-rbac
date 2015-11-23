@@ -1,11 +1,11 @@
 <?php
 
-namespace yii2mod\rbac;
+namespace zc\rbac;
 
 
 /**
  * Class Module
- * @package yii2mod\rbac
+ * @package zc\rbac
  */
 class Module extends \yii\base\Module
 {
@@ -30,7 +30,7 @@ class Module extends \yii\base\Module
      * See also the [guide section on autoloading](guide:concept-autoloading) to learn more about
      * defining namespaces and how classes are loaded.
      */
-    public $controllerNamespace = 'yii2mod\rbac\controllers';
+    public $controllerNamespace = 'zc\rbac\controllers';
 
     /**
      * Initializes the module.

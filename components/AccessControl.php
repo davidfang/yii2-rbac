@@ -1,13 +1,13 @@
 <?php
 
-namespace yii2mod\rbac\components;
+namespace zc\rbac\components;
 
 use Yii;
 use yii\base\InlineAction;
 
 /**
  * Class AccessControl
- * @package yii2mod\rbac\components
+ * @package zc\rbac\components
  */
 class AccessControl extends \yii\filters\AccessControl
 {

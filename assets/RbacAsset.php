@@ -1,13 +1,13 @@
 <?php
 
-namespace yii2mod\rbac\assets;
+namespace zc\rbac\assets;
 
 use yii\web\AssetBundle;
 
 
 /**
  * Class RbacAsset
- * @package yii2mod\rbac\assets
+ * @package zc\rbac\assets
  */
 class RbacAsset extends AssetBundle
 {
@@ -15,7 +15,7 @@ class RbacAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = '@vendor/yii2mod/yii2-rbac/assets';
+    public $sourcePath = '@vendor/zc/yii2-rbac/assets';
 
 
     /**

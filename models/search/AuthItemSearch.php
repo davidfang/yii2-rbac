@@ -1,6 +1,6 @@
 <?php
 
-namespace yii2mod\rbac\models\search;
+namespace zc\rbac\models\search;
 
 use yii\base\Model;
 use yii\data\ArrayDataProvider;
@@ -9,7 +9,7 @@ use Yii;
 
 /**
  * Class AuthItem
- * @package yii2mod\rbac\models\search
+ * @package zc\rbac\models\search
  */
 class AuthItemSearch extends Model
 {

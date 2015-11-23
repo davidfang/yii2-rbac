@@ -1,6 +1,6 @@
 <?php
 
-namespace yii2mod\rbac\components;
+namespace zc\rbac\components;
 
 use ReflectionClass;
 use yii\caching\TagDependency;
@@ -9,7 +9,7 @@ use Yii;
 
 /**
  * Class AccessHelper
- * @package yii2mod\rbac\components
+ * @package zc\rbac\components
  */
 class AccessHelper
 {
