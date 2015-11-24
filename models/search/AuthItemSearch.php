@@ -28,7 +28,10 @@ class AuthItemSearch extends Model
      * @var string auth item description
      */
     public $description;
-
+    /**
+     * @var array all item
+     */
+    public $items;
     /**
      * Returns the validation rules for attributes.
      *
@@ -90,6 +93,7 @@ class AuthItemSearch extends Model
                 }
             }
         }
+
         if ($this->load($params) && $this->validate() && (trim($this->name) !== '' || trim($this->description) !== '')) {
             $search = strtolower(trim($this->name));
             $desc = strtolower(trim($this->description));
@@ -97,6 +101,8 @@ class AuthItemSearch extends Model
                 return (empty($search) || strpos(strtolower($item->name), $search) !== false) && (empty($desc) || strpos(strtolower($item->description), $desc) !== false);
             });
         }
+        $this->items = $items;
+
         return new ArrayDataProvider([
             'allModels' => $items,
         ]);

@@ -11,6 +11,7 @@ use yii\web\Controller;
 use Yii;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use zc\rbac\components\AccessControl;
 use zc\rbac\models\search\AssignmentSearch;
 
 /**
@@ -65,7 +66,20 @@ class AssignmentController extends Controller
                 'actions' => [
                     'assign' => ['post'],
                 ],
-            ]
+            ],
+            'access' => [
+                'class'        => AccessControl::className(),
+                'rules'        => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['error'],
+                        'allow'   => true,
+                    ],
+                ],
+            ],
         ];
     }
 

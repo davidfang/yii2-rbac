@@ -6,6 +6,7 @@ use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use zc\rbac\components\AccessControl;
 use zc\rbac\models\BizRuleModel;
 use zc\rbac\models\search\BizRuleSearch;
 
@@ -30,6 +31,19 @@ class RuleController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class'        => AccessControl::className(),
+                'rules'        => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['error'],
+                        'allow'   => true,
+                    ],
                 ],
             ],
         ];

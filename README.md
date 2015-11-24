@@ -29,25 +29,25 @@ Once the extension is installed, simply modify your application configuration as
 return [
     //....
     'modules' => [
-        .....
-        'admin' => [
-            'class' => 'app\modules\admin\Module',
-            'modules' => [
-                'rbac' => [
-                    'class' => 'zc\rbac\Module',
-                    //Some controller property maybe need to change. 
-                    'controllerMap' => [
-                        'assignment' => [
-                            'class' => 'zc\rbac\controllers\AssignmentController',
-                            'userClassName' => 'path\to\models\User',
-                        ]
-                    ]
-                ],
+        'rbac' => [
+            'class' => 'zc\rbac\Module',
+            //Some controller property maybe need to change.
+            'controllerMap' => [
+                'assignment' => [
+                    'class' => 'zc\rbac\controllers\AssignmentController',
+                    'userClassName' => 'path\to\models\User',
+                ]
             ]
         ],
     ],
+
   'components' => [
         ....
+        'user' => [
+                    'identityClass' => 'common\models\User',//'app\models\AdminUser',用户模型
+                    'enableAutoLogin' => true,
+                    'loginUrl' => ['user/login'],//登录地址
+                ],
          'authManager' => [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest', 'user'],
@@ -58,6 +58,22 @@ return [
             //'ruleTable' => 'AuthRule',
         ],
     ]
+    'as access' => [
+        'class' => 'zc\rbac\components\AccessControl',
+        'allowActions' => [
+            '/',
+            'home/captcha',
+            'home/error',
+            'user/logout',
+            'user/login',
+            //'some-controller/some-action',允许访问的其它目录
+            // The actions listed here will be allowed to everyone including guests.
+            // So, 'admin/*' should not appear here in the production, of course.
+            // But in the earlier stages of your development, you may probably want to
+            // add a lot of actions here until you finally completed setting up rbac,
+            // otherwise you may not even take a first step.
+        ]
+    ],
 ];
 ```
 you need execute rbac init migration by the following command:
@@ -89,6 +105,7 @@ public function behaviors()
         return [
             'access' => [
                 'class' => AccessControl::className(),
+                'permissionNameIsRoute => false,// 此处很重要，默认为false，不使用路由做权限资源名，将路由写在descrption里
             ],
             'verbs' => [
                 ...

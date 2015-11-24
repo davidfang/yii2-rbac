@@ -10,6 +10,7 @@ use yii\rbac\Item;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use zc\rbac\components\AccessControl;
 use zc\rbac\models\AuthItemModel;
 use zc\rbac\models\search\AuthItemSearch;
 
@@ -33,6 +34,19 @@ class RoleController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class'        => AccessControl::className(),
+                'rules'        => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['error'],
+                        'allow'   => true,
+                    ],
                 ],
             ],
         ];
