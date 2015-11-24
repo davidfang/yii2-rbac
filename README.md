@@ -62,17 +62,39 @@ return [
         'class' => 'zc\rbac\components\AccessControl',
         'allowActions' => [
             '/',
+            'home/*',
+            'backend/reflushmenu',
             'home/captcha',
             'home/error',
             'user/logout',
             'user/login',
-            //'some-controller/some-action',允许访问的其它目录
+            //'some-controller/some-action',
             // The actions listed here will be allowed to everyone including guests.
             // So, 'admin/*' should not appear here in the production, of course.
             // But in the earlier stages of your development, you may probably want to
             // add a lot of actions here until you finally completed setting up rbac,
             // otherwise you may not even take a first step.
-        ]
+        ],
+        'rules'        => [
+            [
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+            [
+                'actions' => ['logout'],
+                'allow' => true,
+                'roles' => ['@'],
+            ],
+            [
+                'actions' => ['error'],
+                'allow'   => true,
+            ],
+            [
+                'actions' => ['login'],
+                'allow'   => true,
+                'roles'   => ['?'],
+            ],
+        ],
     ],
 ];
 ```
@@ -83,11 +105,11 @@ php yii migrate/up --migrationPath=@zc/rbac/migrations
 
 You can then access Auth manager through the following URL:
 ```
-http://localhost/path/to/index.php?r=admin/rbac/
-http://localhost/path/to/index.php?r=admin/rbac/route
-http://localhost/path/to/index.php?r=admin/rbac/permission
-http://localhost/path/to/index.php?r=admin/rbac/role
-http://localhost/path/to/index.php?r=admin/rbac/assignment
+http://localhost/path/to/index.php?r=rbac/
+http://localhost/path/to/index.php?r=rbac/route
+http://localhost/path/to/index.php?r=rbac/permission
+http://localhost/path/to/index.php?r=rbac/role
+http://localhost/path/to/index.php?r=rbac/assignment
 ```
 
 For applying rules add to your controller following code:
@@ -98,6 +120,7 @@ class ExampleController extends Controller
 {
 
 /**
+ * 如果在配置文件里面配置了，这里就可以不用了
  * Returns a list of behaviors that this component should behave as.
  */
 public function behaviors()

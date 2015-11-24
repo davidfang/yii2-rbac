@@ -67,19 +67,6 @@ class AssignmentController extends Controller
                     'assign' => ['post'],
                 ],
             ],
-            'access' => [
-                'class'        => AccessControl::className(),
-                'rules'        => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['error'],
-                        'allow'   => true,
-                    ],
-                ],
-            ],
         ];
     }
 

@@ -36,19 +36,7 @@ class RoleController extends Controller
                     'delete' => ['post'],
                 ],
             ],
-            'access' => [
-                'class'        => AccessControl::className(),
-                'rules'        => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['error'],
-                        'allow'   => true,
-                    ],
-                ],
-            ],
+
         ];
     }
 

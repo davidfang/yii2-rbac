@@ -18,30 +18,6 @@ use zc\rbac\models\RouteModel;
  */
 class RouteController extends Controller
 {
-    /**
-     * Returns a list of behaviors that this component should behave as.
-     *
-     * Child classes may override this method to specify the behaviors they want to behave as.
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class'        => AccessControl::className(),
-                'rules'        => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['error'],
-                        'allow'   => true,
-                    ],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Index action
