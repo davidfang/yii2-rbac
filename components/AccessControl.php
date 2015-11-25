@@ -75,8 +75,6 @@ class AccessControl extends \yii\filters\AccessControl
                         return true;
                     }
                 }
-                //var_dump([$actionId,$permissionsArray,$permissionStr]);exit;
-                //var_dump($user->can($permissionStr, $params));exit;
                 $controller = $action->controller;
                 do {
                     if(in_array(ltrim($controller->getUniqueId() . '/*', '/'),$this->allowActions)){
