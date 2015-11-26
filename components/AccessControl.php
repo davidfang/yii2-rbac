@@ -39,27 +39,27 @@ class AccessControl extends \yii\filters\AccessControl
     public function beforeAction($action)
     {
         if(parent::beforeAction($action)) {
-            if ($this->permissionNameIsRoute) {
+            //if ($this->permissionNameIsRoute) {//根据权限路由检查
                 $actionId = $action->getUniqueId();
-                if(in_array($actionId,$this->allowActions)){
+                if(in_array('/'.$actionId,$this->allowActions)){
                     return true;
                 }
                 $user = Yii::$app->getUser();
                 $params = isset($this->params[$action->id]) ? $this->params[$action->id] : [];
-                if ($user->can($actionId, $params)) {
+                if ($user->can('/'.$actionId, $params)) {
                     return true;
                 }
                 $controller = $action->controller;
                 do {
-                    if(in_array(ltrim($controller->getUniqueId() . '/*', '/'),$this->allowActions)){
+                    if(in_array('/'.ltrim($controller->getUniqueId() . '/*', '/'),$this->allowActions)){
                         return true;
                     }
-                    if ($user->can(ltrim($controller->getUniqueId() . '/*', '/'))) {
+                    if ($user->can('/'.ltrim($controller->getUniqueId() . '/*', '/'))) {
                         return true;
                     }
                     $controller = $controller->module;
                 } while ($controller !== null);
-            } else {
+            //} else {//根据人为设置的权限descriptioon检查
                 $searchModel = new AuthItemSearch(['type' => Item::TYPE_PERMISSION]);
                 $searchModel->search([]);
                 $permissionsArray = ArrayHelper::getColumn($searchModel->items, 'description');
@@ -88,7 +88,7 @@ class AccessControl extends \yii\filters\AccessControl
                     $controller = $controller->module;
                 } while ($controller !== null);
 
-            }
+            //}
             if (isset($this->denyCallback)) {
                 call_user_func($this->denyCallback, null, $action);
             } else {

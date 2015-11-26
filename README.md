@@ -128,7 +128,6 @@ public function behaviors()
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'permissionNameIsRoute => false,// 此处很重要，默认为false，不使用路由做权限资源名，将路由写在descrption里
             ],
             'verbs' => [
                 ...
