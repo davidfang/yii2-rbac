@@ -6,7 +6,6 @@ use yii\base\Model;
 use yii\helpers\VarDumper;
 use yii\rbac\Item;
 use Yii;
-
 /**
  * Class AuthItemModel
  * This is the model class for table "AuthItem".
@@ -21,6 +20,15 @@ use Yii;
  */
 class AuthItemModel extends Model
 {
+    /**
+     * @var string 权限管理插件名称
+     */
+    public $authManagerStr = 'authManager' ;
+    /**
+     * @var yii\rbac\DbManager 权限管理插件名称实例
+     */
+    public $authManager  ;
+
     /**
      * @var string auth item name
      */
@@ -59,6 +67,8 @@ class AuthItemModel extends Model
      */
     public function __construct($item, $config = [])
     {
+        $authManagerStr = $this->authManagerStr;
+        $this->authManager = Yii::$app->$authManagerStr;
         $this->_item = $item;
         if ($item !== null) {
             $this->name = $item->name;
@@ -81,7 +91,7 @@ class AuthItemModel extends Model
     public function rules()
     {
         return [
-            [['ruleName'], 'in', 'range' => array_keys(Yii::$app->authManager->getRules()), 'message' => 'Rule not exists'],
+            [['ruleName'], 'in', 'range' => array_keys($this->authManager->getRules()), 'message' => 'Rule not exists'],
             [['name', 'type'], 'required'],
             ['name', 'existAuthItem'],
             [['type'], 'integer'],
@@ -97,9 +107,9 @@ class AuthItemModel extends Model
     public function existAuthItem()
     {
         if ($this->type === Item::TYPE_PERMISSION) {
-            $authItem = Yii::$app->authManager->getPermission($this->name);
+            $authItem = $this->authManager->getPermission($this->name);
         } else {
-            $authItem = Yii::$app->authManager->getRole($this->name);
+            $authItem = $this->authManager->getRole($this->name);
         }
         if ($this->getIsNewRecord()) {
             if (!empty($authItem)) {
@@ -146,11 +156,13 @@ class AuthItemModel extends Model
      * Find auth item
      *
      * @param $id
+     * @param $authManagerStr string 权限插件名称
      * @return null|AuthItemModel
      */
-    public static function find($id)
+    public static function find($id,$authManagerStr)
     {
-        $item = Yii::$app->authManager->getRole($id);
+
+        $item = Yii::$app->$authManagerStr->getRole($id);
         if ($item !== null) {
             return new self($item);
         }
@@ -165,7 +177,7 @@ class AuthItemModel extends Model
     public function save()
     {
         if ($this->validate()) {
-            $manager = Yii::$app->authManager;
+            $manager = $this->authManager;
             if ($this->_item === null) {
                 if ($this->type == Item::TYPE_ROLE) {
                     $this->_item = $manager->createRole($this->name);

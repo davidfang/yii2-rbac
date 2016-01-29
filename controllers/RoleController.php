@@ -46,8 +46,10 @@ class RoleController extends Controller
      */
     public function actionIndex()
     {
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         $searchModel = new AuthItemSearch(['type' => Item::TYPE_ROLE]);
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(),$authManager);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -65,7 +67,8 @@ class RoleController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $authManager = Yii::$app->getAuthManager();
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         $available = $assigned = [
             'Roles' => [],
             'Permission' => [],
@@ -109,7 +112,9 @@ class RoleController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new AuthItemModel(null);
+        $model->authManagerStr = $this->module->authManager;
         $model->type = Item::TYPE_ROLE;
         if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Role has been saved.');
@@ -164,7 +169,9 @@ class RoleController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $post = Yii::$app->request->post();
         $roles = ArrayHelper::getValue($post, 'roles', []);
-        $manager = Yii::$app->getAuthManager();
+        $authManagerStr = $this->module->authManager;
+        $manager = Yii::$app->$authManagerStr;
+
         $parent = $manager->getRole($id);
         if ($action == 'assign') {
             foreach ($roles as $role) {
@@ -202,7 +209,8 @@ class RoleController extends Controller
             'Permission' => [],
             'Routes' => [],
         ];
-        $authManager = Yii::$app->authManager;
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         if ($target == 'available') {
             $children = array_keys($authManager->getChildren($id));
             $children[] = $id;
@@ -247,9 +255,13 @@ class RoleController extends Controller
      */
     protected function findModel($id)
     {
-        $item = Yii::$app->getAuthManager()->getRole($id);
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $item = $authManager->getRole($id);
         if ($item) {
-            return new AuthItemModel($item);
+            $return = new AuthItemModel($item);
+            $return->authManagerStr = $authManagerStr;
+            return $return;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

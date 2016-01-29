@@ -10,6 +10,10 @@ namespace zc\rbac;
 class Module extends \yii\base\Module
 {
     /**
+     * @var string 权限管理插件名称
+     */
+    public $authManager = 'authManager' ;
+    /**
      * @var string the default route of this module. Defaults to 'default'.
      * The route may consist of child module ID, controller ID, and/or action ID.
      * For example, `help`, `post/create`, `admin/post/create`.

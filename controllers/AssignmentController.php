@@ -40,6 +40,7 @@ class AssignmentController extends Controller
      */
     public $searchClass;
 
+    public $authManager ;
 
     /**
      * Init function
@@ -49,6 +50,9 @@ class AssignmentController extends Controller
         parent::init();
         if ($this->userClassName === null) {
             $this->userClassName = Yii::$app->getUser()->identityClass;
+        }
+        if ($this->authManager ===  null) {
+            $this->authManager = $this->module->authManager;
         }
     }
 
@@ -101,7 +105,8 @@ class AssignmentController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $authManager = Yii::$app->authManager;
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         $available = [];
         $assigned = [];
 
@@ -136,7 +141,8 @@ class AssignmentController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $post = Yii::$app->request->post();
         $roles = ArrayHelper::getValue($post, 'roles', []);
-        $manager = Yii::$app->authManager;
+        $authManagerStr = $this->module->authManager;
+        $manager = Yii::$app->$authManagerStr;
         if ($action == 'assign') {
             foreach ($roles as $role) {
                 $manager->assign($manager->getRole($role), $id);
@@ -162,7 +168,8 @@ class AssignmentController extends Controller
      */
     public function actionRoleSearch($id, $target, $term = '')
     {
-        $authManager = Yii::$app->authManager;
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         $available = [];
         foreach ($authManager->getRoles() as $role) {
             $available[$role->name] = $role->name;

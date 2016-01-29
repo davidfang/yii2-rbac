@@ -13,7 +13,6 @@ use Yii;
  */
 class AuthItemSearch extends Model
 {
-
     /**
      * @var string auth item name
      */
@@ -68,13 +67,14 @@ class AuthItemSearch extends Model
     /**
      * Search
      * @param array $params
-     *
+     * @param objec \yii\rbac\Manager
      * @return \yii\data\ActiveDataProvider|\yii\data\ArrayDataProvider
      */
-    public function search($params)
+    public function search($params,$authManager)
     {
+
         /* @var \yii\rbac\Manager $authManager */
-        $authManager = Yii::$app->authManager;
+        //$authManager = Yii::$app->authManager;
         if ($this->type == Item::TYPE_ROLE) {
             $items = $authManager->getRoles();
         } else {
