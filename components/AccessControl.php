@@ -61,7 +61,8 @@ class AccessControl extends \yii\filters\AccessControl
                 } while ($controller !== null);
             //} else {//根据人为设置的权限descriptioon检查
                 $searchModel = new AuthItemSearch(['type' => Item::TYPE_PERMISSION]);
-                $searchModel->search([]);
+                $authManager = Yii::$app->authManager;
+                $searchModel->search([],$authManager);
                 $permissionsArray = ArrayHelper::getColumn($searchModel->items, 'description');
 
                 $actionId = $action->getUniqueId();

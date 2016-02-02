@@ -114,7 +114,10 @@ class RoleController extends Controller
     {
 
         $model = new AuthItemModel(null);
-        $model->authManagerStr = $this->module->authManager;
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $model->authManagerStr = $authManagerStr;
+        $model->authManager = $authManager;
         $model->type = Item::TYPE_ROLE;
         if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Role has been saved.');
@@ -153,7 +156,9 @@ class RoleController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        Yii::$app->getAuthManager()->remove($model->item);
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $authManager->remove($model->item);
         Yii::$app->session->setFlash('success', 'Role has been removed.');
         return $this->redirect(['index']);
     }
@@ -261,6 +266,7 @@ class RoleController extends Controller
         if ($item) {
             $return = new AuthItemModel($item);
             $return->authManagerStr = $authManagerStr;
+            $return->authManager = $authManager;
             return $return;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -47,8 +47,10 @@ class PermissionController extends Controller
      */
     public function actionIndex()
     {
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         $searchModel = new AuthItemSearch(['type' => Item::TYPE_PERMISSION]);
-        $dataProvider = $searchModel->search(Yii::$app->getRequest()->getQueryParams());
+        $dataProvider = $searchModel->search(Yii::$app->getRequest()->getQueryParams(),$authManager);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -66,7 +68,8 @@ class PermissionController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $authManager = Yii::$app->getAuthManager();
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         $available = $assigned = [
             'Permission' => [],
             'Routes' => [],
@@ -101,6 +104,10 @@ class PermissionController extends Controller
     public function actionCreate()
     {
         $model = new AuthItemModel(null);
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $model->authManagerStr = $authManagerStr;
+        $model->authManager = $authManager;
         $model->type = Item::TYPE_PERMISSION;
         if ($model->load(Yii::$app->getRequest()->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Permission has been saved.');
@@ -139,7 +146,9 @@ class PermissionController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        Yii::$app->getAuthManager()->remove($model->item);
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $authManager->remove($model->item);
         Yii::$app->session->setFlash('success', 'Permission has been removed.');
         return $this->redirect(['index']);
     }
@@ -155,7 +164,8 @@ class PermissionController extends Controller
         Yii::$app->getResponse()->format = Response::FORMAT_JSON;
         $post = Yii::$app->getRequest()->post();
         $roles = ArrayHelper::getValue($post, 'roles', []);
-        $manager = Yii::$app->getAuthManager();
+        $authManagerStr = $this->module->authManager;
+        $manager = Yii::$app->$authManagerStr;
         $parent = $manager->getPermission($id);
         if ($action == 'assign') {
             foreach ($roles as $role) {
@@ -187,7 +197,8 @@ class PermissionController extends Controller
             'Permission' => [],
             'Routes' => [],
         ];
-        $authManager = Yii::$app->getAuthManager();
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         if ($target == 'available') {
             $children = array_keys($authManager->getChildren($id));
             $children[] = $id;
@@ -220,9 +231,14 @@ class PermissionController extends Controller
      */
     protected function findModel($id)
     {
-        $item = Yii::$app->getAuthManager()->getPermission($id);
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $item = $authManager->getPermission($id);
         if ($item) {
-            return new AuthItemModel($item);
+            $return =  new AuthItemModel($item);
+            $return->authManagerStr = $authManagerStr;
+            $return->authManager = $authManager;
+            return $return;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

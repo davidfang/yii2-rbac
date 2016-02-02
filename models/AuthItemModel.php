@@ -25,7 +25,7 @@ class AuthItemModel extends Model
      */
     public $authManagerStr = 'authManager' ;
     /**
-     * @var yii\rbac\DbManager 权限管理插件名称实例
+     * @var \yii\rbac\DbManager 权限管理插件名称实例
      */
     public $authManager  ;
 
