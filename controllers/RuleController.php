@@ -44,7 +44,8 @@ class RuleController extends Controller
     public function actionIndex()
     {
         $searchModel = new BizRuleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        $authManagerStr = $this->module->authManager;
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(),$authManagerStr);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
@@ -110,7 +111,9 @@ class RuleController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        Yii::$app->authManager->remove($model->item);
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $authManager->remove($model->item);
         Yii::$app->session->setFlash('success', 'Rule has been deleted.');
         return $this->redirect(['index']);
     }
@@ -126,7 +129,9 @@ class RuleController extends Controller
      */
     protected function findModel($id)
     {
-        $item = Yii::$app->authManager->getRule($id);
+        $authManagerStr = $this->module->authManager;
+        $authManager = Yii::$app->$authManagerStr;
+        $item = $authManager->getRule($id);
         if ($item) {
             return new BizRuleModel($item);
         } else {

@@ -39,15 +39,17 @@ class BizRuleSearch extends Model
      * @param array $params
      * @return \yii\data\ActiveDataProvider|\yii\data\ArrayDataProvider
      */
-    public function search($params)
+    public function search($params,$authManagerStr)
     {
         /* @var \yii\rbac\Manager $authManager */
-        $authManager = Yii::$app->authManager;
+        $authManager = Yii::$app->$authManagerStr;
         $models = [];
         $included = !($this->load($params) && $this->validate() && trim($this->name) !== '');
         foreach ($authManager->getRules() as $name => $item) {
             if ($included || stripos($item->name, $this->name) !== false) {
-                $models[$name] = new BizRuleModel($item);
+                $bizRule =  new BizRuleModel($item);
+                $bizRule->authManagerStr = $authManagerStr;
+                $models[$name] = $bizRule;
             }
         }
         return new ArrayDataProvider([

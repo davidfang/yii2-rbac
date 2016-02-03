@@ -15,6 +15,10 @@ use zc\rbac\components\BizRule;
 class BizRuleModel extends Model
 {
     /**
+     * @var 权限 字符
+     */
+    public $authManagerStr;
+    /**
      * @var string name of the rule
      */
     public $name;
@@ -78,7 +82,9 @@ class BizRuleModel extends Model
      */
     public function existRuleName()
     {
-        $rule = Yii::$app->authManager->getRule($this->name);
+        $authManagerStr = $this->authManagerStr;
+        $authManager = Yii::$app->$authManagerStr;
+        $rule = $authManager->getRule($this->name);
         if (!empty($rule) && $this->getIsNewRecord()) {
             $this->addError('name', "This name has already been taken.");
         }
@@ -129,9 +135,10 @@ class BizRuleModel extends Model
      *
      * @return BizRuleModel|null
      */
-    public static function find($id)
+    public static function find($id,$authManagerStr)
     {
-        $item = Yii::$app->authManager->getRule($id);
+        $authManager = Yii::$app->$authManagerStr;
+        $item = $authManager->getRule($id);
         if ($item !== null) {
             return new self($item);
         }
